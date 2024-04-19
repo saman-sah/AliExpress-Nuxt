@@ -1,6 +1,9 @@
 <template>
-  <div class="text-red-400">
-    Home Page
+  <div
+    id="IndexPage" 
+    class="mt-4 max-2-[1200px] mx-auto px-2"
+  >
+    Index Page
   </div>
 </template>
 

@@ -2,11 +2,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   pages: true,
+  css: ['~/assets/css/main.sass'],
   modules: [
     'nuxt-icon',
     'nuxt-lodash',
     '@pinia/nuxt',
-    '@nuxtjs/tailwindcss',
     // 'nuxtjs/supabase',
   ],
   runtimeConfig: {
@@ -24,7 +24,10 @@ export default defineNuxtConfig({
       ]
     }
   },
-  tailwindcss: {
-    exposeConfig: true,
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
   },
 })
