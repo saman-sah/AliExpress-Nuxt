@@ -1,7 +1,7 @@
 <template>
   <div
     id="MainLayout" 
-    class="w-full fixed z-50"
+    class="w-full fixed z-50 "
   >
     <div
       id="TopMenu"
@@ -180,7 +180,10 @@
   <Loading v-if="userStore.isLoading" />
 
   <div class="lg:pt-[150px] md:pt[130px] pt-[80px]" />
-  <slot />
+  <div class="bg-gray-200 py-8">
+    <slot />
+
+  </div>
 
   <Footer v-if="!userStore.isLoading" />
 </template>
