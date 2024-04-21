@@ -9,7 +9,7 @@
         <div
           @click="isSelected = !isSelected"
           :class="[
-            !isSelected || 'bg-[#FD374F]',
+            isSelected && 'bg-[#FD374F]',
             isHover ? 'border-[#FD374F]' : 'border-gray-300',
             'flex items-center justify-center h-[20px] w-[20px] rounded-full border mr-5 ml-2'
           ]"

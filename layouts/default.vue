@@ -159,7 +159,7 @@
               <Icon
                 v-if="isSearching"
                 name="ph:shopping-cart-simple-light"
-                :color="!isCartHover || '#FF4646'"
+                :color="isCartHover && '#FF4646'"
                 size="33"
               />
             </div>
