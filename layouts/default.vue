@@ -88,6 +88,7 @@
           <img
             width="170"
             :src="Logo"
+            />
         </NuxtLink>
         <div class="max-w-[700] w-full md:block hidden">
           <div class="relative">
@@ -119,7 +120,7 @@
                 class="p-1"
               >
                 <NuxtLink
-                  to="/item/1"
+                  to="/product/1"
                   class="flex items-center justify-between w-full cursor-pointer hover:bg-gray-100"
                 >
                   <div class="flex items-center">
