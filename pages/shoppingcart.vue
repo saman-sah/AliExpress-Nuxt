@@ -56,7 +56,7 @@
           >
             <CartItem
               :product="product"
-              :slectedArray="slectedArray"
+              :selectedArray="selectedArray"
               @selectedRadio="selectedRadioFunc"
             />
           </div>
@@ -165,5 +165,20 @@ const selectedRadioFunc = (e) => {
       selectedArray.value.splice(index, 1)
     }
   })
+}
+
+const goToCheckout = () => {
+  let ids = []
+  userStore.checkout = []
+  selectedArray.value.forEach(item => {
+    ids.push(item.id)
+  })
+  let res= userStore.cart.filter((item) => {
+    return ids.indexOf(item.id) != -1
+  })
+
+  res.forEach(item => userStore.checkout.push(toRaw(item)))
+
+  return navigateTo('/checkout')
 }
 </script>
