@@ -7,7 +7,7 @@
     <div class="grid xl:grid-cols-6 lg:grid-cols-5 md-grid-cols-4 sm:grid-cols-3 grid-cols-2 gap-4">
       <template v-if="products">
         <div
-          v-for="product in products"
+          v-for="product in products.data"
           :key="product"
         >
           <ProductItem :product="product" />
@@ -19,16 +19,11 @@
 
 <script setup>
 
-
-const products = [
-  {id: 1, title: "title 1", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 2, title: "title 2", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 3, title: "title 3", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 4, title: "title 4", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 5, title: "title 5", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 6, title: "title 6", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 7, title: "title 7", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 8, title: "title 8", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 9, title: "title 9", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 }
-]
+const userStore = useUserStore()
+let products = ref(null)
+definePageMeta({ middleware: "auth" })
+onBeforeMount(async () => {
+  products.value = await useFetch('/api/prisma/get-all-products')
+  setTimeout(() => userStore.isLoading = false, 1000)
+})
 </script>

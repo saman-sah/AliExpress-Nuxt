@@ -24,7 +24,7 @@
         v-for="btn in loginButton"
         :key="btn"
         class="flex items-center justify-center mt-6 gap-3 p-1.5 w-full border hover:bg-gray-100 rounded-full text-lg font-semibold"
-        @click="loginButton(btn.label)"
+        @click="login(btn.label)"
       >
         <img
           :src="btn.img"
@@ -38,17 +38,16 @@
 </template>
 
 <script setup>
+const client = useSupabaseClient()
+const user = useSupabaseUser()
 
-// const client = useSupabaseClient()
-// const user = useSupabaseUser()
+watchEffect(() => {
+  if(user.value) { 
+    return navigateTo('/')
+  }
+})
 
-// watchEffect(() => {
-//   if(UserActivation.value) { 
-//     return navigateTo('/')
-//   }
-// })
-
-const lofin = async (provider) => {
+const login = async (provider) => {
   const { data, error } = await client.auth.signInWithOAuth({
     provider: provider
   })

@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  router: {
+    middleware: ['auth']
+  },
   devtools: { enabled: true },
   pages: true,
   css: ['~/assets/css/main.sass'],
@@ -7,7 +10,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     'nuxt-lodash',
     '@pinia/nuxt',
-    // 'nuxtjs/supabase',
+    '@nuxtjs/supabase',
   ],
   runtimeConfig: {
     public: {

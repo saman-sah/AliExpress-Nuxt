@@ -9,7 +9,7 @@
           <div class="text-xl font-semibold mb-2">
             Shipping Address
           </div>
-          <div v-if="true">
+          <div v-if="currentAddress && currentAddress.data">
             <NuxtLink
               to="/address"
               class="flex items-center text-blue-500 hover:text-red-400"
@@ -29,23 +29,33 @@
               <ul class="text-xs">
                 <li class="flex items-center gap-2">
                   <div>Contact name:</div>
-                  <div class="font-bold">Tset</div>
+                  <div class="font-bold">
+                    {{ currentAddress.data.name }}
+                  </div>
                 </li>
                 <li class="flex items-center gap-2">
                   <div>Address:</div>
-                  <div class="font-bold">Tset</div>
+                  <div class="font-bold">
+                    {{ currentAddress.data.address }}
+                  </div>
                 </li>
                 <li class="flex items-center gap-2">
                   <div>Zip Code:</div>
-                  <div class="font-bold">Tset</div>
+                  <div class="font-bold">
+                    {{ currentAddress.data.zipcode }}
+                  </div>
                 </li>
                 <li class="flex items-center gap-2">
                   <div>City:</div>
-                  <div class="font-bold">Tset</div>
+                  <div class="font-bold">
+                    {{ currentAddress.data.city }}
+                  </div>
                 </li>
                 <li class="flex items-center gap-2">
-                  <div>ZCountry:</div>
-                  <div class="font-bold">Tset</div>
+                  <div>Country:</div>
+                  <div class="font-bold">
+                    {{ currentAddress.data.country }}
+                  </div>
                 </li>
               </ul>
             </div>
@@ -69,7 +79,7 @@
           class="bg-white rounded-lg p-4 mt-4"
         >
           <div
-            v-for="product in products"
+            v-for="product in userStore.checkout"
             :key="product"
           >
             <CheckoutProductItem :product="product" />
@@ -146,6 +156,28 @@
 </template>
 
 <script setup>
+const user = useSupabaseUser()
+onBeforeMount(async () => {
+  if(userStore.checkout.length < 1) {
+    return navigateTo('/shoppingcart')
+  }
+
+  total.value = 0.00
+
+  if(user.value) {
+    currentAddress.value = await useFetch(`/api/prisma/get-address-by-user/${user.value.id}`)
+    setTimeout(() => {
+      userStore.isLoading = false
+    }, 200);
+  }
+})
+
+watchEffect(() => {
+  if(route.fullPath == '/checkout' && !user.value) {
+    return navigateTo('/auth')
+  }
+})
+
 onMounted(() => {
   isProcessing.value = true
   userStore.checkout.forEach(item => {
@@ -190,8 +222,4 @@ const showError = (errorMsgText) => {
 
 }
 
-const products = [
-  {id: 1, title: "title 1", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-  {id: 2, title: "title 2", description: "this is a disc", url: "https://picsum.photos/id/7/800/800", price: 990 },
-]
 </script>
