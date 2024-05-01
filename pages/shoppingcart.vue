@@ -118,26 +118,23 @@
 </template>
 
 <script setup>
-const user = useSupabaseUser()
-
 import cartEmpty from '/cart-empty.png'
 
-onMounted(() => {
-  setTimeout(() => {
-    userStore.isLoading = false
-  }, 200);
-})
-
-const userStore = useUserStore()
-
 let selectedArray = ref([])
-
+const user = useSupabaseUser()
+const userStore = useUserStore()
 const cards = ref([
   'visa.png',
   'mastercard.png',
   'paypal.png',
   'applepay.png'
 ])
+
+onMounted(() => {
+  setTimeout(() => {
+    userStore.isLoading = false
+  }, 200);
+})
 
 const totalPriceComputed = computed(() => {
   let price = 0

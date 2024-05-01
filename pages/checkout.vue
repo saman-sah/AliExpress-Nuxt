@@ -156,7 +156,19 @@
 </template>
 
 <script setup>
+const route = useRoute()
 const user = useSupabaseUser()
+const userStore = useUserStore()
+let from = null
+let card = null
+let stripe = null
+let elements = null
+let total = ref(0)
+let clientSecret = null
+let currentAddress = null
+let selectedArray = ref([])
+let isProcessing = ref(false)
+
 onBeforeMount(async () => {
   if(userStore.checkout.length < 1) {
     return navigateTo('/shoppingcart')
@@ -172,33 +184,12 @@ onBeforeMount(async () => {
   }
 })
 
-watchEffect(() => {
-  if(route.fullPath == '/checkout' && !user.value) {
-    return navigateTo('/auth')
-  }
-})
-
 onMounted(() => {
   isProcessing.value = true
   userStore.checkout.forEach(item => {
     total.value += item.price
   })
 })
-
-const route = useRoute()
-const userStore = useUserStore()
-
-let from = null
-let card = null
-let stripe = null
-let elements = null
-let total = ref(0)
-let clientSecret = null
-let currentAddress = null
-let isProcessing = ref(false)
-
-
-let selectedArray = ref([])
 
 watch(() => total.value, () => {
   if(total.value > 0 ) {

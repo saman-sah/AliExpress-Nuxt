@@ -21,7 +21,6 @@
 
 const userStore = useUserStore()
 let products = ref(null)
-definePageMeta({ middleware: "auth" })
 onBeforeMount(async () => {
   products.value = await useFetch('/api/prisma/get-all-products')
   setTimeout(() => userStore.isLoading = false, 1000)

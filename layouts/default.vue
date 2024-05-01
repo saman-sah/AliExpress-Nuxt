@@ -108,7 +108,6 @@
               />
               <button class="flex items-center h-[100%] p-1.5 px-2 bg-primary">
                 <Icon
-                  v-if="isSearching"
                   name="ph:magnifying-glass"
                   color="#ffffff"
                   size="20"
@@ -118,8 +117,8 @@
             <div class="absolute bg-white max-w-[700px] h-auto w-full">
               <template v-if="items && items.data" >
                 <div
-                v-for="item in items.data"
-                :key="item"
+                  v-for="item in items.data"
+                  :key="item"
                   class="p-1"
                 >
                   <NuxtLink
@@ -161,7 +160,6 @@
             </span>
             <div class="min-w-[40px]">
               <Icon
-                v-if="isSearching"
                 name="ph:shopping-cart-simple-light"
                 :color="isCartHover && '#FF4646'"
                 size="33"
@@ -196,14 +194,13 @@
 <script setup>
 import Logo from '/AliExpress-logo.png'
 
-const userStore = useUserStore()
 
-const client = useSupabaseClient()
 const user = useSupabaseUser()
-
 const items = ref(null)
+const client = useSupabaseClient()
+const userStore = useUserStore()
 const searchItem = ref('')
-const isSearching = ref(true)
+const isSearching = ref(false)
 const isCartHover = ref(false)
 const isAccountMenu = ref(false)
 
@@ -218,8 +215,8 @@ watch(() => searchItem.value, async () => {
       items.value = '',
       isSearching.value = false
     }, 500)
-    searchByName()
   }
+  searchByName()
 })
 
 const menuItem = [
