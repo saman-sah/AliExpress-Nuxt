@@ -3,6 +3,7 @@
     id="CheckoutPage"
     class="mt-4 max-w-[1200px] mx-auto px-2"
   >
+    {{ toWordify(2310034) }}
     <div class="md:flex gap-4 justify-between mx-auto w-full">
       <div class="md:w-[65%]">
         <div class="bg-white rounded-lg p-4">
@@ -156,6 +157,7 @@
 </template>
 
 <script setup>
+import { toWordify } from 'src/utils/string'
 const route = useRoute()
 const user = useSupabaseUser()
 const userStore = useUserStore()
