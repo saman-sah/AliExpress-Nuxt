@@ -214,6 +214,7 @@ watch(() => searchItem.value, async () => {
     setTimeout(() => {
       items.value = '',
       isSearching.value = false
+      return
     }, 500)
   }
   searchByName()
